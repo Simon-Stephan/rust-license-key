@@ -129,7 +129,11 @@ impl LicensePayload {
     /// // After validating a license:
     /// // let max_users = payload.get_value_or("max_users", &json!(10));
     /// ```
-    pub fn get_value_or<'a>(&'a self, key: &str, default: &'a serde_json::Value) -> &'a serde_json::Value {
+    pub fn get_value_or<'a>(
+        &'a self,
+        key: &str,
+        default: &'a serde_json::Value,
+    ) -> &'a serde_json::Value {
         self.get_value(key).unwrap_or(default)
     }
 
@@ -271,9 +275,8 @@ impl LicensePayload {
     /// // }
     /// ```
     pub fn get_string_array(&self, key: &str) -> Option<Vec<&str>> {
-        self.get_array(key).map(|arr| {
-            arr.iter().filter_map(|v| v.as_str()).collect()
-        })
+        self.get_array(key)
+            .map(|arr| arr.iter().filter_map(|v| v.as_str()).collect())
     }
 
     /// Gets an object value from the license metadata.
@@ -296,7 +299,10 @@ impl LicensePayload {
     /// // }
     /// ```
     pub fn has_key(&self, key: &str) -> bool {
-        self.metadata.as_ref().map(|m| m.contains_key(key)).unwrap_or(false)
+        self.metadata
+            .as_ref()
+            .map(|m| m.contains_key(key))
+            .unwrap_or(false)
     }
 
     /// Returns all metadata keys.
@@ -727,7 +733,11 @@ impl ValidationResult {
     }
 
     /// Gets a custom value from the license metadata, or returns a default value.
-    pub fn get_value_or<'a>(&'a self, key: &str, default: &'a serde_json::Value) -> &'a serde_json::Value {
+    pub fn get_value_or<'a>(
+        &'a self,
+        key: &str,
+        default: &'a serde_json::Value,
+    ) -> &'a serde_json::Value {
         self.get_value(key).unwrap_or(default)
     }
 
@@ -824,7 +834,10 @@ impl ValidationResult {
     ///
     /// Returns `false` if validation failed or no metadata is present.
     pub fn has_key(&self, key: &str) -> bool {
-        self.payload.as_ref().map(|p| p.has_key(key)).unwrap_or(false)
+        self.payload
+            .as_ref()
+            .map(|p| p.has_key(key))
+            .unwrap_or(false)
     }
 }
 
@@ -924,7 +937,10 @@ mod tests {
         metadata.insert("tier".to_string(), serde_json::json!("enterprise"));
         metadata.insert("max_users".to_string(), serde_json::json!(100));
         metadata.insert("is_beta".to_string(), serde_json::json!(true));
-        metadata.insert("modules".to_string(), serde_json::json!(["core", "analytics"]));
+        metadata.insert(
+            "modules".to_string(),
+            serde_json::json!(["core", "analytics"]),
+        );
 
         let payload = LicensePayload {
             format_version: LICENSE_FORMAT_VERSION,

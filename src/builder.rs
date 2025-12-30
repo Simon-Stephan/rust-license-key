@@ -849,7 +849,10 @@ mod tests {
         let license = LicenseBuilder::new()
             .license_id("LIC-001")
             .customer_id("CUST-001")
-            .add_key_value("modules", serde_json::json!(["core", "analytics", "export"]))
+            .add_key_value(
+                "modules",
+                serde_json::json!(["core", "analytics", "export"]),
+            )
             .add_string_array("plugins", vec!["plugin1", "plugin2"])
             .build_payload()
             .expect("Should build payload");
@@ -866,10 +869,13 @@ mod tests {
         let license = LicenseBuilder::new()
             .license_id("LIC-001")
             .customer_id("CUST-001")
-            .add_key_value("limits", serde_json::json!({
-                "storage_gb": 500,
-                "bandwidth_tb": 10
-            }))
+            .add_key_value(
+                "limits",
+                serde_json::json!({
+                    "storage_gb": 500,
+                    "bandwidth_tb": 10
+                }),
+            )
             .build_payload()
             .expect("Should build payload");
 
@@ -887,10 +893,13 @@ mod tests {
             .add_i64("employees", 500)
             .add_bool("enterprise", true)
             .add_string_array("regions", vec!["US", "EU", "APAC"])
-            .add_key_value("config", serde_json::json!({
-                "theme": "dark",
-                "notifications": true
-            }))
+            .add_key_value(
+                "config",
+                serde_json::json!({
+                    "theme": "dark",
+                    "notifications": true
+                }),
+            )
             .build_payload()
             .expect("Should build payload");
 
