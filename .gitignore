@@ -1,0 +1,24 @@
+# Build artifacts
+/target
+
+# Cargo lock for libraries (optional - some prefer to include it)
+# Cargo.lock
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Claude Code
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+
+# Test artifacts
+*.log
