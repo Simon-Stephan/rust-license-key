@@ -22,3 +22,4 @@ Thumbs.db
 
 # Test artifacts
 *.log
+/CLAUDE.md
