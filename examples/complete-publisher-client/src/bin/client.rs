@@ -66,6 +66,31 @@ fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
         } else {
             println!("\n🚶 Booting application in Basic Mode.");
         }
+
+        // ==========================================
+        // Testing License Expiration
+        // ==========================================
+        println!("\n=== Testing License Expiration ===");
+        let wait_secs = 4;
+        println!("Waiting for {} seconds to simulate time passing...", wait_secs);
+        std::thread::sleep(std::time::Duration::from_secs(wait_secs));
+
+        println!("\nRe-validating license...");
+        // Re-create the context because it captures the current time at creation
+        let new_context = ValidationContext::new()
+            .with_feature("premium")
+            .with_connection_count(100);
+            
+        let expired_result = validate_license(&license_json, &public_key, &new_context)?;
+
+        if !expired_result.is_valid {
+            println!("❌ License correctly identified as EXPIRED:");
+            for failure in &expired_result.failures {
+                println!("   - {}", failure.message);
+            }
+        } else {
+            println!("✅ License is still VALID (unexpected if duration was < 4s).");
+        }
     } else {
         println!("❌ License is INVALID");
         println!("   Validation failures:");
