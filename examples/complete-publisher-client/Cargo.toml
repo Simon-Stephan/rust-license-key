@@ -1,0 +1,18 @@
+[package]
+name = "complete-publisher-client"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+rust-license-key = "0.1"
+chrono = "0.4"
+serde_json = "1.0"
+
+[[bin]]
+name = "publisher"
+path = "src/bin/publisher.rs"
+
+[[bin]]
+name = "client"
+path = "src/bin/client.rs"
